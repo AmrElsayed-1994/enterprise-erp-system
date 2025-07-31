@@ -1,0 +1,54 @@
+{
+  "name": "Enterprise ERP System",
+  "description": "Comprehensive Enterprise Resource Planning system built with Laravel",
+  "repository": "https://github.com/AmrElsayed-1994/enterprise-erp-system",
+  "logo": "https://laravel.com/img/logomark.min.svg",
+  "keywords": ["laravel", "erp", "php", "enterprise", "management"],
+  "stack": "container",
+  "buildpacks": [],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "image": "heroku/php",
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini"
+    }
+  ],
+  "env": {
+    "APP_NAME": {
+      "description": "Application name",
+      "value": "Enterprise ERP System"
+    },
+    "APP_ENV": {
+      "description": "Application environment",
+      "value": "production"
+    },
+    "APP_DEBUG": {
+      "description": "Enable debug mode",
+      "value": "false"
+    },
+    "APP_KEY": {
+      "description": "Application encryption key",
+      "generator": "secret"
+    },
+    "DB_CONNECTION": {
+      "description": "Database connection type",
+      "value": "pgsql"
+    },
+    "LOG_CHANNEL": {
+      "description": "Log channel",
+      "value": "stack"
+    },
+    "LOG_LEVEL": {
+      "description": "Log level",
+      "value": "error"
+    }
+  },
+  "scripts": {
+    "postdeploy": "php artisan migrate --seed --force"
+  }
+}
