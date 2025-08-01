@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ContractorItemsController;
+use App\Http\Controllers\ContractorTendersController;
+use App\Http\Controllers\PaymentCertificatesController;
+use App\Http\Controllers\GuaranteesController;
+use App\Http\Controllers\ProductionLaborController;
+use App\Http\Controllers\ChangeOrdersController;
+use App\Http\Controllers\ContractorMonitoringController;
+use App\Http\Controllers\ContractorReportsController;
 
 Route::get('/', function () {
     return redirect('/dashboard');
@@ -72,6 +80,33 @@ Route::middleware('auth')->prefix('modules')->group(function () {
     Route::get('/subcontractors', function () {
         return view('modules.subcontractors.dashboard');
     })->name('subcontractors.dashboard');
+    
+    Route::prefix('subcontractors')->group(function () {
+        Route::get('/contractor-items', [ContractorItemsController::class, 'dashboard'])->name('contractor-items.dashboard');
+        Route::resource('contractor-items', ContractorItemsController::class);
+
+        Route::get('/contractor-tenders', [ContractorTendersController::class, 'dashboard'])->name('contractor-tenders.dashboard');
+        Route::resource('contractor-tenders', ContractorTendersController::class);
+
+        Route::get('/payment-certificates', [PaymentCertificatesController::class, 'dashboard'])->name('payment-certificates.dashboard');
+        Route::resource('payment-certificates', PaymentCertificatesController::class);
+
+        Route::get('/guarantees', [GuaranteesController::class, 'dashboard'])->name('guarantees.dashboard');
+        Route::resource('guarantees', GuaranteesController::class);
+
+        Route::get('/production-labor', [ProductionLaborController::class, 'dashboard'])->name('production-labor.dashboard');
+        Route::resource('production-labor', ProductionLaborController::class);
+
+        Route::get('/change-orders', [ChangeOrdersController::class, 'dashboard'])->name('change-orders.dashboard');
+        Route::resource('change-orders', ChangeOrdersController::class);
+
+        Route::get('/contractor-monitoring', [ContractorMonitoringController::class, 'dashboard'])->name('contractor-monitoring.dashboard');
+        Route::resource('contractor-monitoring', ContractorMonitoringController::class);
+
+        Route::get('/contractor-reports', [ContractorReportsController::class, 'dashboard'])->name('contractor-reports.dashboard');
+        Route::resource('contractor-reports', ContractorReportsController::class);
+        Route::post('/contractor-reports/{contractorReport}/generate', [ContractorReportsController::class, 'generate'])->name('contractor-reports.generate');
+    });
     
     Route::get('/reports', function () {
         return view('modules.reports.dashboard');
