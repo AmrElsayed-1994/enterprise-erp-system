@@ -4,18 +4,21 @@
   "repository": "https://github.com/AmrElsayed-1994/enterprise-erp-system",
   "logo": "https://laravel.com/img/logomark.min.svg",
   "keywords": ["laravel", "erp", "php", "enterprise", "management"],
-  "stack": "container",
-  "buildpacks": [],
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ],
   "formation": {
     "web": {
       "quantity": 1,
       "size": "basic"
     }
   },
-  "image": "heroku/php",
   "addons": [
     {
-      "plan": "heroku-postgresql:mini"
+      "plan": "heroku-postgresql:essential-0"
     }
   ],
   "env": {
@@ -28,12 +31,16 @@
       "value": "production"
     },
     "APP_DEBUG": {
-      "description": "Enable debug mode",
-      "value": "false"
+      "description": "Enable debug mode for troubleshooting",
+      "value": "true"
     },
     "APP_KEY": {
       "description": "Application encryption key",
       "generator": "secret"
+    },
+    "APP_URL": {
+      "description": "Application URL",
+      "required": false
     },
     "DB_CONNECTION": {
       "description": "Database connection type",
@@ -44,11 +51,31 @@
       "value": "stack"
     },
     "LOG_LEVEL": {
-      "description": "Log level",
-      "value": "error"
+      "description": "Log level for debugging",
+      "value": "debug"
+    },
+    "SESSION_DRIVER": {
+      "description": "Session driver",
+      "value": "database"
+    },
+    "CACHE_DRIVER": {
+      "description": "Cache driver",
+      "value": "database"
+    },
+    "QUEUE_CONNECTION": {
+      "description": "Queue connection",
+      "value": "database"
+    },
+    "SESSION_SECURE_COOKIE": {
+      "description": "Secure cookies for HTTPS",
+      "value": "true"
+    },
+    "SESSION_SAME_SITE": {
+      "description": "SameSite cookie attribute",
+      "value": "lax"
     }
   },
   "scripts": {
-    "postdeploy": "php artisan migrate --seed --force"
+    "postdeploy": "php artisan config:cache && php artisan route:cache && php artisan migrate --force && php artisan db:seed --force"
   }
 }
