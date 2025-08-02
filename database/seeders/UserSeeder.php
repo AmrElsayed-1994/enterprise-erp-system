@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         $superAdmin = User::create([
             'name' => 'Super Administrator',
             'email' => 'superadmin@erp.com',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'is_active' => true,
             'preferred_language' => 'en',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             'name' => 'System Administrator',
             'email' => 'admin@erp.com',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'is_active' => true,
             'preferred_language' => 'en',
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         $demoUser = User::create([
             'name' => 'Demo User',
             'email' => 'demo@erp.com',
-            'password' => Hash::make('password123'),
+            'password' => Hash::make('password'),
             'email_verified_at' => now(),
             'is_active' => true,
             'preferred_language' => 'en',
